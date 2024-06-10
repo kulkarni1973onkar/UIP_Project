@@ -6,15 +6,17 @@ const bookSchema = new mongoose.Schema({
     author: String,
     publisher: String,
     totalPrice: [String],
-    isbn: [String]
+    isbn: [String],
+    userId:{type:mongoose.Schema.Types.ObjectId,ref:'user'}
 });
 
 
 const Book = mongoose.model("Book", bookSchema);
 
 
-async function createBook(title, author, publisher, totalPrice, isbn) {
+async function createBook(userId,title, author, publisher, totalPrice, isbn) {
     const newBook = await Book.create({
+        userId:userId,
         title: title,
         author: author,
         publisher: publisher,
@@ -25,19 +27,19 @@ async function createBook(title, author, publisher, totalPrice, isbn) {
 }
 
 
-async function getBook(title) {
-    return await Book.findOne({ "title": title });
+async function getBook(userId,title) {
+    return await Book.findOne({ "title": title,"userId":userId });
 }
 
 
-async function updateBook(id, updatedFields) {
-    const book = await Book.updateOne({ "_id": id }, { $set: updatedFields });
+async function updateBook(userId,id, updatedFields) {
+    const book = await Book.updateOne({ "_id": id,"userId": userId }, { $set: updatedFields });
     return book;
 }
 
 
-async function deleteBook(id) {
-    await Book.deleteOne({ "_id": id });
+async function deleteBook(userId,id) {
+    await Book.deleteOne({ "_id": id,"userId": userId });
 }
 
 
