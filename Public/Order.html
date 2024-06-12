@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Order Form</title>
+    <link rel="stylesheet" href="./Styles/Order.css">
+    <script src="./JS/Order.js"></script>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="User.html">User Registration</a></li>
+            <li><a href="Order.html">Book Order</a></li>
+        </ul>
+    </nav>
+    
+    <form action="/submit-order" method="post" id="OrderForm">
+        <div>
+            <label for="isbn">ISBN:</label>
+            <input type="text" id="isbn" name="isbn" required>
+        </div>
+        <div>
+            <label for="title">Title:</label>
+            <input type="text" id="title" name="title" required>
+        </div>
+        <div>
+            <label for="author">Author:</label>
+            <input type="text" id="author" name="author" required>
+        </div>
+        <div>
+            <label for="publisher">Publisher:</label>
+            <input type="text" id="publisher" name="publisher" required>
+        </div>
+        <div>
+            <label for="total-price">Total Price:</label>
+            <input type="number" id="total-price" name="total-price" required>
+        </div>
+        <div>
+            <label for="order-count">Order Count:</label>
+            <input type="number" id="order-count" name="order-count" required>
+        </div>
+        <div>
+            <button type="submit">Submit Order</button>
+        </div>
+    </form>
+</body>
+</html>
