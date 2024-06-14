@@ -5,9 +5,9 @@ const router = express.Router();
 
 router.post('/create', async (req, res) => {
     try {
-        const { title, author, publisher, totalPrice, isbn } = req.body;
-        const newBook = await Book.create({ title, author, publisher, totalPrice, isbn });
-        res.status(201).send(newBook);
+        const {OrderId,OrderName,OrderPrice,OrderAddress, OrderStatus} = req.body;
+        const newOrder = await Order.create({ OrderId,OrderName,OrderPrice,OrderAddress, OrderStatus });
+        res.status(201).send(newOrder);
     } catch (error) {
         res.status(400).send({ message: error.message });
     }
@@ -16,11 +16,11 @@ router.post('/create', async (req, res) => {
 
 router.get('/get', async (req, res) => {
     try {
-        const book = await Book.findOne({ title: req.query.title });
-        if (!book) {
-            return res.status(404).send({ message: "Book not found" });
+        const order = await Order.findOne({ OrderName: req.query.title });
+        if (!order) {
+            return res.status(404).send({ message: "Order not found" });
         }
-        res.send(book);
+        res.send(order);
     } catch (error) {
         res.status(400).send({ message: error.message });
     }
@@ -29,12 +29,12 @@ router.get('/get', async (req, res) => {
 
 router.put('/update', async (req, res) => {
     try {
-        const { id, ...updatedFields } = req.body;
-        const book = await Book.updateOne({ _id: id }, { $set: updatedFields });
-        if (book.nModified === 0) {
-            return res.status(404).send({ message: "Book not found or no changes made" });
+        const { OrderId, ...updatedFields } = req.body;
+        const order = await Order.updateOne({ _OrderId: OrderId }, { $set: updatedFields });
+        if (order.nModified === 0) {
+            return res.status(404).send({ message: "Order not found or no changes made" });
         }
-        res.send({ message: "Book updated successfully" });
+        res.send({ message: "Order updated successfully" });
     } catch (error) {
         res.status(400).send({ message: error.message });
     }
@@ -43,12 +43,12 @@ router.put('/update', async (req, res) => {
 
 router.delete('/delete', async (req, res) => {
     try {
-        const { id } = req.body;
-        const book = await Book.deleteOne({ _id: id });
-        if (book.deletedCount === 0) {
-            return res.status(404).send({ message: "Book not found" });
+        const { OrderId } = req.body;
+        const order = await Order.deleteOne({ _OrderId: OrderId });
+        if (order.deletedCount === 0) {
+            return res.status(404).send({ message: "Order not found" });
         }
-        res.send({ message: "Book deleted successfully" });
+        res.send({ message: "Order deleted successfully" });
     } catch (error) {
         res.status(400).send({ message: error.message });
     }
