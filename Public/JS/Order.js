@@ -1,28 +1,28 @@
 document.addEventListener("DOMContentLoaded", function() {
-    let orderForm = document.getElementById("OrderForm");
+    let OrderForm = document.getElementById("OrderForm");
 
-    if (orderForm) {
-        orderForm.addEventListener('submit', submitOrder);
+    if (OrderForm) {
+        OrderForm.addEventListener('submit', submitOrder);
     }
 
     function submitOrder(e) {
         e.preventDefault();
 
-        let isbn = document.getElementById("isbn").value
-        let title = document.getElementById("title").value
-        let author = document.getElementById("author").value
-        let publisher = document.getElementById("publisher").value
-        let totalPrice = document.getElementById("total-price").value
-        let orderCount = document.getElementById("order-count").value
+        let OrderID = document.getElementById("OrderID").value
+        let UserID = document.getElementById("UserID").value
+        let Name = document.getElementById("Name").value
+        let Price = document.getElementById("Price").value
+        let Address = document.getElementById("Address").value
+        let OrderStatus = document.getElementById("order-status").value
 
        
         let orderData = {
-            isbn: isbn,
-            title: title,
-            author: author,
-            publisher: publisher,
-            totalPrice: parseFloat(totalPrice),
-            orderCount: parseInt(orderCount)
+            OrderID:OrderID,
+            UserID:UserID,
+            Name:Name,
+            Price:Price,
+            Address:Address,
+            OrderStatus:OrderStatus
         };
 
         console.log("Order submitted successfully:", orderData);
