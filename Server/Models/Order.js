@@ -1,46 +1,47 @@
 const mongoose = require("mongoose");
 
 
-const bookSchema = new mongoose.Schema({
-    title: String,
-    author: String,
-    publisher: String,
-    totalPrice: [String],
-    isbn: [String],
+const orderSchema = new mongoose.Schema({
+    OrderName: String,
+    OrderPrice: [String],
+    OrderAddress: String,
+    OrderStatus: String,
     userId:{type:mongoose.Schema.Types.ObjectId,ref:'user'}
 });
 
 
-const Book = mongoose.model("Book", bookSchema);
+const Order = mongoose.model("Order", orderSchema);
 
 
-async function createBook(userId,title, author, publisher, totalPrice, isbn) {
-    const newBook = await Book.create({
-        userId:userId,
-        title: title,
-        author: author,
-        publisher: publisher,
+async function createOrder(userId,OrderId,OrderName,OrderPrice,OrderAddress, OrderStatus) {
+    const newOrder = await Order.create({
+        OrderName:OrderName,
+        OrderPrice:OrderPrice,
+        OrderAddress:OrderAddress,
+        OrderStatus:OrderStatus,
         totalPrice: totalPrice,
-        isbn: isbn
+        userId:userId,
+        OrderId:OrderId
+        
     });
-    return newBook;
+    return newOrder;
 }
 
 
-async function getBook(userId,title) {
-    return await Book.findOne({ "title": title,"userId":userId });
+async function getOrder(userId,OrderName) {
+    return await Order.findOne({ "OrderName": OrderName,"userId":userId });
 }
 
 
-async function updateBook(userId,id, updatedFields) {
-    const book = await Book.updateOne({ "_id": id,"userId": userId }, { $set: updatedFields });
-    return book;
+async function updateOrder(userId,OrderId, updatedFields) {
+    const order = await Order.updateOne({ "_OrderId": OrderId,"userId": userId }, { $set: updatedFields });
+    return order;
 }
 
 
-async function deleteBook(userId,id) {
-    await Book.deleteOne({ "_id": id,"userId": userId });
+async function deleteOrder(userId,OrderId) {
+    await Book.deleteOne({ "_OrderId": OrderId,"userId": userId });
 }
 
 
-module.exports = { createBook, getBook, updateBook, deleteBook };
+module.exports = { createOrder, getOrder, updateOrder, deleteOrder };
