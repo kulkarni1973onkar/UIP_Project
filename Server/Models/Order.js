@@ -28,6 +28,14 @@ async function createOrder(userId,OrderId,OrderName,OrderPrice,OrderAddress, Ord
 }
 
 
+// GET Orders
+async function getAllOrders() {
+    const database = client.db('test');
+    const collection = database.collection('orders');
+    const orders = await collection.find().toArray()
+    console.log(orders);
+    return orders;
+}
 async function getOrder(userId,OrderName) {
     return await Order.findOne({ "OrderName": OrderName,"userId":userId });
 }
@@ -44,4 +52,4 @@ async function deleteOrder(userId,OrderId) {
 }
 
 
-module.exports = { createOrder, getOrder, updateOrder, deleteOrder };
+module.exports = { createOrder, getAllOrders,getOrder, updateOrder, deleteOrder };
