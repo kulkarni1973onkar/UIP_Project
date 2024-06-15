@@ -6,6 +6,8 @@ const path = require('path');
 
 const userRoutes = require('./Server/Routes/User');
 const orderRoutes = require('./Server/Routes/Order');
+const bookRoutes = require('./Server/Routes/Book');
+
 
 
 mongoose.connect(process.env.dbURL)
@@ -26,6 +28,9 @@ app.use(function(req, res, next) {
 
   app.use('/user',userRoutes);
   app.use('/order',orderRoutes);
+  app.use('/book',bookRoutes);
+
+
 
   const PORT = process.env.PORT || 3000;
   app.listen(PORT, () => console.log(`Server started!! Listening on port ${PORT}!!! :)`));
