@@ -3,12 +3,23 @@ const User = require('../Models/User');
 const router = express.Router();
 
 router 
+
+    .get('/getUsers', async (req, res) => {
+        try {
+            const users = await User.getAllUsers() 
+            res.send(users);
+        } catch (err) {
+            res.status(401).send({ message: err.message })
+        }
+    })
+
+
     .post('/login',async(req,res) => {
         try
         {
             const user = await User.login(req.body.username, req.body.password);
-            res.send({...user, password: undefined});
-        }catch(console)
+            res.send({...user.toObject(), password: undefined});
+        }catch(error)
         {
             res.status(401).send({message: error.message});
         }
@@ -17,8 +28,8 @@ router
     .post('/register',async(req,res) => {
         try
         {
-            const user = await User.register(req.body.username, req.body.password);
-            res.send({...user, password: undefined});
+            const user = await User.register(req.body.name,req.body.username,req.body.password, req.body.confirmpassword,req.body.email,req.body.address,req.body.mobileno);
+            res.send({...user.toObject(), password: undefined});
         } 
         catch(error)
         {
@@ -26,10 +37,12 @@ router
         }
     })
 
+    
+
     .put('/update', async(req,res) =>{
         try{
             const user=await User.updatePassword(req.body.id, req.body.password)
-            res.send({...user, password:undefined});
+            res.send({...user.toObject(), password:undefined});
         }
         catch(error)
         {
