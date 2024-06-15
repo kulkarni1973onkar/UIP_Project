@@ -26,6 +26,15 @@ async function createBook(userId,title, author, publisher, totalPrice, isbn) {
     return newBook;
 }
 
+//Gets all books
+async function getAllBooks() {
+    const database = client.db('test');
+    const collection = database.collection('books');
+    const orders = await collection.find().toArray()
+    console.log(books);
+    return books;
+}
+
 
 async function getBook(userId,title) {
     return await Book.findOne({ "title": title,"userId":userId });
@@ -43,4 +52,4 @@ async function deleteBook(userId,id) {
 }
 
 
-module.exports = { createBook, getBook, updateBook, deleteBook };
+module.exports = { createBook, getBook, updateBook, deleteBook,getAllBooks };
